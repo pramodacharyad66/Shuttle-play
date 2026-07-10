@@ -1,0 +1,90 @@
+/* ===================================================================
+   SPL Design Tokens
+   Concept: "Night Court" — the deep teal-charcoal of a badminton hall
+   under floodlights, chalk-white court lines for text, smash-orange
+   for action/energy, and a cool cyan pulse for "live" states
+   (available now / in progress). Dark mode is the default surface.
+   =================================================================== */
+
+:root {
+  /* ---- Core palette ---- */
+  --spl-bg: #0E1A1A;              /* night court floor */
+  --spl-bg-elevated: #142726;     /* slightly lifted panels */
+  --spl-surface: #1B302E;         /* cards */
+  --spl-surface-hover: #223B38;
+  --spl-border: #2A4542;
+
+  --spl-text-primary: #F4F7F5;    /* chalk line white */
+  --spl-text-secondary: #9FB6B1;
+  --spl-text-muted: #6C837E;
+
+  --spl-accent: #FF6A3D;          /* smash — primary action / energy */
+  --spl-accent-strong: #FF4F1F;
+  --spl-accent-soft: rgba(255, 106, 61, 0.14);
+
+  --spl-live: #3DE0D0;            /* cyan pulse — live / available / in-progress */
+  --spl-live-soft: rgba(61, 224, 208, 0.14);
+
+  --spl-success: #4ADE80;
+  --spl-warning: #FBBF24;
+  --spl-danger: #F87171;
+
+  /* ---- Light mode overrides (opt-in via [data-theme="light"]) ---- */
+  &[data-theme='light'] {
+    --spl-bg: #F3F6F5;
+    --spl-bg-elevated: #FFFFFF;
+    --spl-surface: #FFFFFF;
+    --spl-surface-hover: #EAF1EF;
+    --spl-border: #DCE6E3;
+    --spl-text-primary: #10201E;
+    --spl-text-secondary: #435C58;
+    --spl-text-muted: #7C928D;
+    --spl-accent-soft: rgba(255, 106, 61, 0.10);
+    --spl-live-soft: rgba(61, 224, 208, 0.12);
+  }
+
+  /* ---- Typography ---- */
+  --font-display: 'Bricolage Grotesque', 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* ---- Type scale ---- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  /* ---- Spacing (8px baseline) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* ---- Radius ---- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-full: 999px;
+
+  /* ---- Shadow (soft, low-contrast for dark UI) ---- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.32);
+  --shadow-glow-accent: 0 0 0 1px var(--spl-accent-soft), 0 4px 20px rgba(255, 106, 61, 0.18);
+  --shadow-glow-live: 0 0 0 1px var(--spl-live-soft), 0 4px 20px rgba(61, 224, 208, 0.16);
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+
+  /* ---- Layout ---- */
+  --bottom-nav-height: 64px;
+  --max-content-width: 480px; /* mobile-first single column, capped on desktop */
+}
