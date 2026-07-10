@@ -6,7 +6,7 @@
 export const CONFIG = {
   // Paste your Apps Script Web App "exec" URL here after Step 4 of the
   // deployment guide. Placeholder for now — Phase 0 has no live backend yet.
-  API_BASE_URL: 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE',
+  API_BASE_URL: 'https://script.google.com/macros/s/AKfycbzufffUIXyDx8TSQi7WqMQOa5erxm8KURY8k_UyUMP8AP4zIV_SVYtHkqX09lDg_9N8/exec',
 
   APP_NAME: 'SPL',
   APP_FULL_NAME: 'ShuttlePlay',
