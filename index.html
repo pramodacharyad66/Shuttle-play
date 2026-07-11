@@ -28,8 +28,26 @@
     </header>
 
     <main class="app-main">
-      <div id="view"><!-- router.js renders login/register/pending/home/admin here --></div>
+      <div id="view"><!-- router.js renders login/register/pending/home/admin/etc here --></div>
     </main>
+
+    <nav class="bottom-nav" id="bottom-nav" hidden>
+      <a href="#/" class="nav-item" data-route="/">
+        <span>Home</span>
+      </a>
+      <a href="#/availability" class="nav-item" data-route="/availability">
+        <span>Availability</span>
+      </a>
+      <a href="#/court" class="nav-item" data-route="/court">
+        <span>Court</span>
+      </a>
+      <a href="#/announcements" class="nav-item" data-route="/announcements">
+        <span>News</span>
+      </a>
+      <a href="#/profile" class="nav-item" data-route="/profile">
+        <span>Profile</span>
+      </a>
+    </nav>
   </div>
 
   <script type="module" src="./js/app.js"></script>

@@ -8,7 +8,7 @@
  * or returning users will keep seeing the old shell.
  */
 
-const CACHE_NAME = 'spl-shell-v2'; // bumped for Phase 1 — new files added below
+const CACHE_NAME = 'spl-shell-v3'; // bumped for Checkpoint A — new pages added
 
 const SHELL_FILES = [
   './',
@@ -29,6 +29,10 @@ const SHELL_FILES = [
   './js/pages/pendingApproval.js',
   './js/pages/home.js',
   './js/pages/admin.js',
+  './js/pages/profile.js',
+  './js/pages/availability.js',
+  './js/pages/courtBooking.js',
+  './js/pages/announcements.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
 ];

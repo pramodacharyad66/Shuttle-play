@@ -9,17 +9,35 @@ export function renderHome(container) {
       <div class="card-title">You're in</div>
       <h2>Hey, ${escapeHtml(user.nickname || user.name)} 👋</h2>
       <p style="color: var(--spl-text-secondary); margin-top: var(--space-2);">
-        Logged in as <strong>${escapeHtml(user.role)}</strong>. The real dashboard
-        (today's session, matches, payments…) arrives in later phases — this
-        confirms your login and session are working end to end.
+        Logged in as <strong>${escapeHtml(user.role)}</strong>.
+        ${user.vacationUntil ? `You're on vacation mode until ${escapeHtml(user.vacationUntil)}.` : ''}
       </p>
+    </div>
+
+    <div class="quick-links">
+      <a href="#/availability" class="card quick-link">
+        <div class="quick-link-icon">🏸</div>
+        <div>Availability</div>
+      </a>
+      <a href="#/court" class="card quick-link">
+        <div class="quick-link-icon">📍</div>
+        <div>Court booking</div>
+      </a>
+      <a href="#/announcements" class="card quick-link">
+        <div class="quick-link-icon">📣</div>
+        <div>Announcements</div>
+      </a>
+      <a href="#/profile" class="card quick-link">
+        <div class="quick-link-icon">👤</div>
+        <div>Your profile</div>
+      </a>
     </div>
 
     ${isAdmin() ? `
       <div class="card">
         <div class="card-title">Admin</div>
         <p style="margin-bottom: var(--space-3); color: var(--spl-text-secondary);">
-          You're a Super Admin — approve new members here.
+          You're a Super Admin — approve new members and manage roles here.
         </p>
         <a href="#/admin" class="btn btn-secondary btn-block">Go to Admin panel</a>
       </div>
@@ -35,6 +53,6 @@ export function renderHome(container) {
 
 function escapeHtml(str) {
   const div = document.createElement('div');
-  div.textContent = str;
+  div.textContent = str == null ? '' : String(str);
   return div.innerHTML;
 }

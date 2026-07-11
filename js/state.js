@@ -29,6 +29,14 @@ export function setSession(sessionToken, user) {
   notify();
 }
 
+/** Merges partial fields into the current user (e.g. after a profile edit or photo upload). */
+export function updateUser(partialUser) {
+  if (!state.user) return;
+  state.user = { ...state.user, ...partialUser };
+  localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(state.user));
+  notify();
+}
+
 export function clearSession() {
   state.sessionToken = null;
   state.user = null;
