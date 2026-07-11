@@ -22,9 +22,15 @@
         <span class="shuttle-dot"></span>
         SPL
       </div>
-      <button id="theme-toggle" class="btn btn-secondary" style="min-height:36px; padding: 6px 16px; font-size: var(--text-xs);">
-        Toggle theme
-      </button>
+      <div class="header-actions">
+        <div class="sync-indicator" title="Confirms the app is talking to the live backend right now, not a cached copy">
+          <span class="sync-dot" id="sync-dot" data-state="pending"></span>
+          <span id="sync-text">Connecting…</span>
+        </div>
+        <button id="theme-toggle" class="btn btn-secondary" style="min-height:36px; padding: 6px 16px; font-size: var(--text-xs);">
+          Toggle theme
+        </button>
+      </div>
     </header>
 
     <main class="app-main">

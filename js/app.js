@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import { initRouter } from './router.js';
+import { startSync } from './sync.js';
 
 /**
  * App bootstrap — Phase 1: theme handling + router init.
@@ -26,6 +27,7 @@ function init() {
   if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
 
   initRouter();
+  startSync();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {

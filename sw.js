@@ -1,14 +1,20 @@
 /**
- * SPL Service Worker — Phase 0 version.
- * Strategy: cache-first for the app shell (so the app opens instantly and
- * works offline), network-first for anything else (later, API calls will
- * fall back to last-known cached data via storageUtils.js in Phase 9).
+ * SPL Service Worker — "network-first" strategy.
  *
- * IMPORTANT: bump CACHE_NAME on every deploy that changes cached files,
- * or returning users will keep seeing the old shell.
+ * Every request tries the network FIRST, always getting the latest
+ * deployed version when online. The cache is purely a fallback for when
+ * the device has no connection at all (so the app still opens offline).
+ * This deliberately trades a little offline sophistication for
+ * correctness: at this app's scale, "always show real data" matters far
+ * more than aggressive offline caching, and this is what eliminates the
+ * stale-version bugs we kept hitting during development.
+ *
+ * IMPORTANT: bump CACHE_NAME whenever you want to force every device to
+ * fully discard its old fallback cache (rarely needed now, since network
+ * is always preferred when available).
  */
 
-const CACHE_NAME = 'spl-shell-v3'; // bumped for Checkpoint A — new pages added
+const CACHE_NAME = 'spl-shell-v4-networkfirst';
 
 const SHELL_FILES = [
   './',
@@ -23,6 +29,7 @@ const SHELL_FILES = [
   './js/app.js',
   './js/state.js',
   './js/auth.js',
+  './js/sync.js',
   './js/router.js',
   './js/pages/login.js',
   './js/pages/register.js',
@@ -39,7 +46,12 @@ const SHELL_FILES = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_FILES))
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.addAll(SHELL_FILES).catch(() => {
+        // Don't let one missing file block install — offline fallback is
+        // best-effort, not a hard requirement.
+      })
+    )
   );
   self.skipWaiting();
 });
@@ -56,19 +68,19 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // Never cache API calls (Apps Script) — always go to network
-  if (request.method !== 'GET' || request.url.includes('script.google.com')) {
+  // Never intercept API calls — those always go straight to the network,
+  // full stop, no caching, no fallback (stale API data is worse than none).
+  if (request.method !== 'GET' || request.url.indexOf('script.google.com') !== -1) {
     return;
   }
 
   event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
+    fetch(request, { cache: 'no-store' })
+      .then((response) => {
         const clone = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
         return response;
-      });
-    })
+      })
+      .catch(() => caches.match(request)) // offline fallback only
   );
 });

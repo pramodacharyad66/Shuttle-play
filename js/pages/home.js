@@ -10,7 +10,7 @@ export function renderHome(container) {
       <h2>Hey, ${escapeHtml(user.nickname || user.name)} 👋</h2>
       <p style="color: var(--spl-text-secondary); margin-top: var(--space-2);">
         Logged in as <strong>${escapeHtml(user.role)}</strong>.
-        ${user.vacationUntil ? `You're on vacation mode until ${escapeHtml(user.vacationUntil)}.` : ''}
+        ${user.vacationUntil ? `You're on vacation mode until ${escapeHtml(formatVacationDate(user.vacationUntil))}.` : ''}
       </p>
     </div>
 
@@ -49,6 +49,14 @@ export function renderHome(container) {
   container.querySelector('#logout-btn').addEventListener('click', async () => {
     await logout();
   });
+}
+
+function formatVacationDate(value) {
+  try {
+    return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  } catch (err) {
+    return value;
+  }
 }
 
 function escapeHtml(str) {
